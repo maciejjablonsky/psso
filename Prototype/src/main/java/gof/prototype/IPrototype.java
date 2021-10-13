@@ -3,21 +3,27 @@ package gof.prototype;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
+import java.util.List;
 
-public interface IPrototype extends Cloneable, Serializable {
+public interface IPrototype extends Serializable, Cloneable {
+
 	default <T> T shallowClone() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchFieldException {
-		ParameterizedType superClass = (ParameterizedType) getClass().getGenericSuperclass();
-		Class<T> clazzRoot = (Class<T>) superClass.getActualTypeArguments()[0];
-		T newInstance = clazzRoot.getDeclaredConstructor().newInstance();
-		Field[] fieldsClone = newInstance.getClass().getDeclaredFields();
-		for (Field fieldClone : fieldsClone) {
-			fieldClone.setAccessible(true);
-			Field declaredField = clazzRoot.getDeclaredField(fieldClone.getName());
-			declaredField.setAccessible(true);
-			fieldClone.set(newInstance, (String) declaredField.get(clazzRoot));
+		T clone = null;
+		try {
+			Method m = Object.class.getDeclaredMethod("clone");
+			m.setAccessible(true);
+			clone = (T) m.invoke(this);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
 		}
-		return newInstance;
+		return clone;
 	}
 	default <T> T deepClone() {
 		T clone = null;
