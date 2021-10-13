@@ -1,6 +1,6 @@
 package gof.prototype;
 
-public class Car extends Prototype {
+public class Car implements IPrototype {
 	  protected Engine engine;
 	  protected String name;
 	  protected int x,y;
