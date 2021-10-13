@@ -7,8 +7,10 @@ package gof.observer;
 public class Main {
 
     public static void main(String[] args) {
-        // Create an instance of the game with a 20x20 life grid shown in a 200x200 panel.
-        GameOfLifeApp life = new GameOfLifeApp("The Game of Life", 20, 20, 10, 400, 400);
+        GameOfLife game = new GameOfLife(20, 20, 10);
+        GameOfLifePanel panel = new GameOfLifePanel(game, 400, 400);
+        GameOfLifeUI ui = new GameOfLifeUI("The Game of Life", game, panel);
+        game.addObserver(ui);
     }
 }
 

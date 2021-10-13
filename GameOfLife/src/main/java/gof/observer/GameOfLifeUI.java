@@ -5,6 +5,8 @@ package gof.observer;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,8 +16,9 @@ import javax.swing.JButton;
  *
  * This is the main class of the application.
  */
-public class GameOfLifeApp extends JFrame {
-    protected GameOfLifePanel game;
+public class GameOfLifeUI extends JFrame implements Observer {
+    protected GameOfLife game;
+    protected GameOfLifePanel panel;
     protected JPanel contentPane;
     protected JButton advanceButton;
     protected final static int WIDTH_PAD = 50;
@@ -23,20 +26,21 @@ public class GameOfLifeApp extends JFrame {
 
     // Build the appropriate instance of the GameOfLifePanel class and initialize the
     //  application frame.
-    public GameOfLifeApp(String title, int rows, int cols, int lifeExpectancy, int width, int height) {
+    public GameOfLifeUI(String title, GameOfLife game, GameOfLifePanel panel) {
         super(title);
-        game = new GameOfLifePanel(rows, cols, lifeExpectancy, width, height);
+        this.game = game;
+        this.panel = panel;
         advanceButton = new JButton("Advance");
         contentPane = new JPanel();
         initialize();
     }
 
-    // Build the UI and set the "advance" button to cause the game object to 
+    // Build the UI and set the "advance" button to cause the game object to
     //  advance one generation.
     protected void initialize() {
-        this.setSize(game.getWidth() + WIDTH_PAD, game.getHeight() + HEIGHT_PAD);
+        this.setSize(panel.getWidth() + WIDTH_PAD, panel.getHeight() + HEIGHT_PAD);
         contentPane.setLayout(new FlowLayout());
-        contentPane.add(game);
+        contentPane.add(panel);
         contentPane.add(advanceButton);
         this.setContentPane(contentPane);
         this.setVisible(true);
@@ -46,5 +50,9 @@ public class GameOfLifeApp extends JFrame {
             }
         });
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void update(Observable obj, Object arg) {
+        panel.repaint();
     }
 }
