@@ -1,4 +1,7 @@
 FROM ubuntu:20.04
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Warsaw
+
 RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
@@ -10,9 +13,13 @@ RUN apt-get update && apt-get install -y \
     wget \
     make \
     vim \
+    openssh-server \
+    net-tools \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PATH=/usr/bin
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+ENV PATH=/usr/bin:/usr/sbin:${PATH}
 ENV CC=/usr/bin/gcc
 ENV CXX=/usr/bin/g++
 
@@ -38,3 +45,6 @@ RUN cp omniORB-4.2.4/sample.cfg ${OMNIORB_CONFIG} \
 
 ENV PATH=/opt/bin:${PATH}
 ENV LD_LIBRARY_PATH=/opt/lib:${LD_LIBRARY_PATH}
+
+RUN echo 'root:dupa' | chpasswd
+ENTRYPOINT /etc/init.d/ssh start && /bin/bash
