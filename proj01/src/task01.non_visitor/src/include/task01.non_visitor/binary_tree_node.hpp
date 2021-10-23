@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <task01.non_visitor/tree_node.hpp>
+#include <fmt/format.h>
 
 namespace psso
 {
@@ -20,9 +21,9 @@ class BinaryTreeNode : public TreeNode
     {
     }
 
-    std::string to_in_fix() override
+    std::string to_infix() override
     {
-        return {};
+        return fmt::format("({} {} {})", left_->to_infix(), label_, right_->to_infix());
     }
 };
 } // namespace psso

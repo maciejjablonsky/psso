@@ -10,9 +10,9 @@ class SimpleTreeNode : public TreeNode
     {
     }
 
-    std::string to_in_fix() override
+    std::string to_infix() override
     {
-        return {};
+        return label_;
     }
 };
 } // namespace psso
