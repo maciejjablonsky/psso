@@ -22,6 +22,11 @@ class SimpleTreeNode : public TreeNode
         return label_; 
     }
 
+    std::string to_prefix() override
+    {
+        return label_;
+    }
+
     double evaluate() override
     {
         int result        = 0;

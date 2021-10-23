@@ -16,6 +16,7 @@ class TreeNode
   public:
     virtual std::string to_infix()   = 0;
     virtual std::string to_postfix() = 0;
+    virtual std::string to_prefix()  = 0;
     virtual double evaluate()        = 0;
 };
 } // namespace psso
