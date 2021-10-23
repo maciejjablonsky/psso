@@ -1,9 +1,9 @@
 #pragma once
 
+#include <fmt/format.h>
 #include <memory>
 #include <string>
 #include <task01.non_visitor/tree_node.hpp>
-#include <fmt/format.h>
 
 namespace psso
 {
@@ -23,7 +23,35 @@ class BinaryTreeNode : public TreeNode
 
     std::string to_infix() override
     {
-        return fmt::format("({} {} {})", left_->to_infix(), label_, right_->to_infix());
+        return fmt::format(
+            "({} {} {})", left_->to_infix(), label_, right_->to_infix());
+    }
+
+    double evaluate() override
+    {
+        return calculate(left_->evaluate(), label_, right_->evaluate());
+    }
+
+  private:
+    auto calculate(auto left, const std::string& op, auto right)
+    {
+        if (op == "*")
+        {
+            return left * right;
+        }
+        else if (op == "/")
+        {
+            return left / right;
+        }
+        else if (op == "+")
+        {
+            return left + right;
+        }
+        else if (op == "-")
+        {
+            return left - right;
+        }
+        throw std::runtime_error("Unknown arithmetic operation");
     }
 };
 } // namespace psso
