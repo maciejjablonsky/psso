@@ -39,7 +39,7 @@ class BinaryTreeNode : public TreeNode
             "{} {} {}", label_, left_->to_prefix(), right_->to_prefix());
     }
 
-    double evaluate() override
+    int evaluate() override
     {
         return calculate(left_->evaluate(), label_, right_->evaluate());
     }
@@ -62,6 +62,14 @@ class BinaryTreeNode : public TreeNode
         else if (op == "-")
         {
             return left - right;
+        }
+        if constexpr (std::is_integral_v<decltype(left)> &&
+                      std::is_integral_v<decltype(right)>)
+        {
+            if (op == "%")
+            {
+                return left % right;
+            }
         }
         throw std::runtime_error("Unknown arithmetic operation");
     }

@@ -19,7 +19,7 @@ class Parser
     std::stack<std::string> operator_stack_;
 
     const std::unordered_map<std::string, int> operators_ = {
-        {"*", 2}, {"/", 2}, {"+", 1}, {"-", 1}};
+        {"*", 2}, {"/", 2}, {"%", 2}, {"+", 1}, {"-", 1}};
 
   public:
     std::unique_ptr<TreeNode> parse(const std::string in_fix_expression)

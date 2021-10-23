@@ -19,7 +19,7 @@ class SimpleTreeNode : public TreeNode
 
     std::string to_postfix() override
     {
-        return label_; 
+        return label_;
     }
 
     std::string to_prefix() override
@@ -27,9 +27,9 @@ class SimpleTreeNode : public TreeNode
         return label_;
     }
 
-    double evaluate() override
+    int evaluate() override
     {
-        int result        = 0;
+        auto result       = 0;
         auto parse_result = std::from_chars(
             label_.data(), label_.data() + label_.size(), result);
         if (parse_result.ec == std::errc::invalid_argument)
