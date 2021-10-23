@@ -14,3 +14,11 @@ TEST(ComputeTreeTest, Evaluate)
     auto root_node = parser.parse("1 + ( 2 - 3 * 4 ) / 5");
     ASSERT_EQ(root_node->evaluate(), -1);
 }
+
+TEST(ComputeTreeTest, PostFixNotation)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 3 * 4 ) / 5");
+    ASSERT_EQ(root_node->to_postfix(), "(1 + ((2 - (3 * 4)) / 5))");
+}
+

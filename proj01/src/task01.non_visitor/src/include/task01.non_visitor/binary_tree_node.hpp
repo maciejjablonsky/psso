@@ -27,6 +27,12 @@ class BinaryTreeNode : public TreeNode
             "({} {} {})", left_->to_infix(), label_, right_->to_infix());
     }
 
+    std::string to_postfix() override
+    {
+        return fmt::format(
+            "{} {} {}", left_->to_postfix(), right_->to_postfix(), label_);
+    }
+
     double evaluate() override
     {
         return calculate(left_->evaluate(), label_, right_->evaluate());
