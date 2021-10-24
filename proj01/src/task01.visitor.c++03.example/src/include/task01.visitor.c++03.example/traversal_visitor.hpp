@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
-#include <task01.visitor.c++03/binary_tree_leaf.hpp>
-#include <task01.visitor.c++03/binary_tree_node.hpp>
-#include <task01.visitor.c++03/binary_tree_visitor.hpp>
+#include <task01.visitor.c++03.example/binary_tree_leaf.hpp>
+#include <task01.visitor.c++03.example/binary_tree_node.hpp>
+#include <task01.visitor.c++03.example/binary_tree_visitor.hpp>
 
 namespace psso
 {

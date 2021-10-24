@@ -1,7 +1,7 @@
 #include <fmt/format.h>
-#include <task01.visitor.c++03/binary_tree_leaf.hpp>
-#include <task01.visitor.c++03/summation_visitor.hpp>
-#include <task01.visitor.c++03/traversal_visitor.hpp>
+#include <task01.visitor.c++03.example/binary_tree_leaf.hpp>
+#include <task01.visitor.c++03.example/summation_visitor.hpp>
+#include <task01.visitor.c++03.example/traversal_visitor.hpp>
 
 int main()
 {
