@@ -2,7 +2,7 @@
 #include <task01.visitor.c++03/evaluate_visitor.hpp>
 #include <task01.visitor.c++03/infix_print_visitor.hpp>
 #include <task01.visitor.c++03/parser.hpp>
-
+#include <task01.visitor.c++03/posfix_print_visitor.hpp>
 
 TEST(ComputeTreeTest, InfixPrintVisitor)
 {
@@ -22,4 +22,14 @@ TEST(ComputeTreeTest, EvaluateVisitor)
     root_node->accept(visitor);
 
     ASSERT_EQ(visitor.get_value(), -1);
+}
+
+TEST(ComputeTreeTest, PostfixPrintVisitor)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 3 * 4 ) / 5");
+    psso::PostfixPrintVisitor visitor;
+    root_node->accept(visitor);
+
+    ASSERT_EQ(visitor.report(), "1 2 3 4 * - 5 / +");
 }
