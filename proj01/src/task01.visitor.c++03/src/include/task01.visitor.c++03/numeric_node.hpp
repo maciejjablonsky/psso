@@ -11,10 +11,8 @@ class NumericNode : public TreeNode
   private:
     int value_;
 
-  private:
-
   public:
-    NumericNode(int value)
+    NumericNode(int value) : value_(value)
     {
     }
 
