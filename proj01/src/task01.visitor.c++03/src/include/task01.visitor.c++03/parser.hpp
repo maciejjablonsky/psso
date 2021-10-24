@@ -8,6 +8,7 @@
 #include <string>
 #include <task01.visitor.c++03/addition_node.hpp>
 #include <task01.visitor.c++03/division_node.hpp>
+#include <task01.visitor.c++03/modulo_node.hpp>
 #include <task01.visitor.c++03/multiplication_node.hpp>
 #include <task01.visitor.c++03/numeric_node.hpp>
 #include <task01.visitor.c++03/subtraction_node.hpp>
@@ -23,7 +24,7 @@ class Parser
     std::stack<std::string> operator_stack_;
 
     const std::unordered_map<std::string, int> operators_ = {
-        {"*", 2}, {"/", 2}, {"+", 1}, {"-", 1}};
+        {"*", 2}, {"/", 2}, {"%", 2}, {"+", 1}, {"-", 1}};
 
   public:
     std::unique_ptr<TreeNode> parse(const std::string in_fix_expression)
@@ -133,6 +134,11 @@ class Parser
         {
             return std::make_unique<DivisionNode>(std::move(left_node),
                                                   std::move(right_node));
+        }
+        else if (op == "%")
+        {
+            return std::make_unique<ModuloNode>(std::move(left_node),
+                                                std::move(right_node));
         }
         else
         {

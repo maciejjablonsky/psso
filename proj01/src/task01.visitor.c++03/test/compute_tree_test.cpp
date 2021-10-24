@@ -44,3 +44,43 @@ TEST(ComputeTreeTest, PrefixPrintVisitor)
 
     ASSERT_EQ(visitor.report(), "+ 1 / - 2 * 3 4 5");
 }
+
+TEST(ComputeTreeWithModuloTest, InfixPrintVisitor)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 15 % 8 ) / 5");
+    psso::InfixPrintVisitor visitor;
+    root_node->accept(visitor);
+
+    ASSERT_EQ(visitor.report(), "(1 + ((2 - (15 % 8)) / 5))");
+}
+
+TEST(ComputeTreeWithModuloTest, EvaluateVisitor)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 15 % 8 ) / 5");
+    psso::EvaluateVisitor visitor;
+    root_node->accept(visitor);
+
+    ASSERT_EQ(visitor.get_value(), 0);
+}
+
+TEST(ComputeTreeWithModuloTest, PostfixPrintVisitor)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 15 % 8 ) / 5");
+    psso::PostfixPrintVisitor visitor;
+    root_node->accept(visitor);
+
+    ASSERT_EQ(visitor.report(), "1 2 15 8 % - 5 / +");
+}
+
+TEST(ComputeTreeWithModuloTest, PrefixPrintVisitor)
+{
+    psso::Parser parser;
+    auto root_node = parser.parse("1 + ( 2 - 15 % 8 ) / 5");
+    psso::PrefixPrintVisitor visitor;
+    root_node->accept(visitor);
+
+    ASSERT_EQ(visitor.report(), "+ 1 / - 2 % 15 8 5");
+}
