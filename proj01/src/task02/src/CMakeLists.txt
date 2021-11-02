@@ -1,0 +1,6 @@
+add_library(task02 INTERFACE)
+target_compile_features(task02 INTERFACE cxx_std_20)
+target_include_directories(task02 INTERFACE include)
+find_package(Boost REQUIRED)
+find_package(fmt REQUIRED)
+target_link_libraries(task02 INTERFACE Boost::headers fmt::fmt)
