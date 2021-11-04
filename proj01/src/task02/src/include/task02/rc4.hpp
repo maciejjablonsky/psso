@@ -10,6 +10,9 @@
 
 namespace psso
 {
+using range = std::pmr::vector<std::byte>;
+namespace
+{
 template <typename It, typename PatternIt>
 It fill_with_pattern(It first,
                      It last,
@@ -25,14 +28,16 @@ It fill_with_pattern(It first,
     return first;
 }
 
-using range = std::pmr::vector<std::byte>;
 
+} // namespace
 class RC4
 {
   private:
     range s_box{256};
     range k_box{256};
 
+    int i_ = 0;
+    int j_ = 0;
   public:
     RC4(const psso::range& key)
     {
@@ -101,12 +106,10 @@ class RC4
 
     range key_stream(const auto message_length)
     {
-        int i = 0;
-        int j = 0;
         range output;
         output.resize(message_length);
         std::generate(
-            std::begin(output), std::end(output), [&i, &j, &s_box = s_box] {
+            std::begin(output), std::end(output), [&i = i_, &j = j_, &s_box = s_box] {
                 i = (i + 1) % 256;
                 j = (j + std::to_integer<uint8_t>(s_box[i])) % 256;
                 std::swap(s_box[i], s_box[j]);
